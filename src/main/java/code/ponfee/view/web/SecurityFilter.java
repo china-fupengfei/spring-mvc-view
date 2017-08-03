@@ -20,10 +20,10 @@ import org.slf4j.LoggerFactory;
 
 /**
  * 安全字符过滤，对可能攻击的非法字符进行处理，处理的漏洞包括： 
- * 	※ 加密会话（SSL）Cookie 中缺少Secure 属性 
- * 	※ sql注入 
- * 	※ 跨站点脚本编制 
- * 	※ 跨站点请求伪造（CSRF）
+ *  *加密会话（SSL）Cookie 中缺少Secure 属性 
+ *  *sql注入 
+ *  * 跨站点脚本编制 
+ *  *跨站点请求伪造（CSRF）
  * @author fupf
  */
 public class SecurityFilter implements Filter {
@@ -60,8 +60,7 @@ public class SecurityFilter implements Filter {
     public void destroy() {}
 
     /**
-     * @Title: sqlInjectHandler
-     * @Description: 防止sql注入
+     * 防止sql注入
      * @param
      * @return
      */
@@ -86,8 +85,7 @@ public class SecurityFilter implements Filter {
     }
 
     /**
-     * @Title: xssHandler
-     * @Description: 漏洞解决：【跨站点脚本编制】
+     * 漏洞解决：【跨站点脚本编制】
      * @param
      * @return
      */
@@ -120,8 +118,7 @@ public class SecurityFilter implements Filter {
     }
 
     /**
-     * @Title: csrfHandler
-     * @Description: 漏洞解决：【跨站点请求伪造（CSRF）】
+     * 漏洞解决：【跨站点请求伪造（CSRF）】
      * @param
      * @return
      * @throws
@@ -133,8 +130,7 @@ public class SecurityFilter implements Filter {
 
     /**
      * 注：慎用，SSL时才使用
-     * @Title: httpsSecHandler
-     * @Description: 漏洞解决：【加密会话（SSL）Cookie 中缺少Secure 属性】
+     * 漏洞解决：【加密会话（SSL）Cookie 中缺少Secure 属性】
      * @param
      * @return
      * @throws

@@ -8,10 +8,8 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 /**
- * @Title：session监听
- * @Description：SessionListener
+ * session监听
  * @author fupf
- * @version 1.0
  */
 public class SessionListener implements HttpSessionListener
 {
