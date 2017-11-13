@@ -18,14 +18,13 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
 import code.ponfee.commons.web.WebContext;
 import code.ponfee.view.entity.Article;
+import code.ponfee.view.util.FreeMarkerTemplateUtils;
 import freemarker.template.Template;
-import freemarker.template.TemplateException;
 
 /**
  * http://localhost:8080/spring-mvc-view/news/newsList
@@ -60,16 +59,11 @@ public class NewsController {
         String htmlPath = htmlDir + htmlName;
 
         // 生成 静态新闻列表页
-        try {
-            //模板
-            Template template = freeMarkerConfigurer.getConfiguration().getTemplate("newsList.ftl");
-            //模板生成 HTML 内容
-            String htmlText = FreeMarkerTemplateUtils.processTemplateIntoString(template, articleData);
-            //生成静态页 列表页
-            string2File(htmlText, htmlPath);
-        } catch (IOException | TemplateException e) {
-            e.printStackTrace();
-        }
+        Template template = FreeMarkerTemplateUtils.load4conf(freeMarkerConfigurer.getConfiguration(), "newsList.ftl");
+        //模板生成 HTML 内容
+        String htmlText = FreeMarkerTemplateUtils.print(template, articleData);
+        //生成静态页 列表页
+        string2File(htmlText, htmlPath);
         // 生成静态内容页
         getNewsContentPage(WebContext.getRequest(), WebContext.getResponse());
         // 跳转至静态页
@@ -109,8 +103,8 @@ public class NewsController {
             String htmlText = null;
             try {
                 template = freeMarkerConfigurer.getConfiguration().getTemplate("newsContent.ftl");
-                htmlText = FreeMarkerTemplateUtils.processTemplateIntoString(template, articleData);
-            } catch (IOException | TemplateException e) {
+                htmlText = FreeMarkerTemplateUtils.print(template, articleData);
+            } catch (IOException e) {
                 e.printStackTrace();
             }
             string2File(htmlText, htmlPath);
@@ -131,7 +125,6 @@ public class NewsController {
         articles.add(new Article(20160705, "中日关系正处十字路口日应寻求减少与华冲突", "中国长征七号火箭6月25日在海南文昌航天发射中心首次发射，并成功升空进入轨道。有学者指出长征七号第二级火箭一直在地球低轨运行，一个月后重新进入大气层。"));
         return articles;
     }
-
 
     //path 不存在则创建
     private boolean string2File(String text, String htmlPath) {

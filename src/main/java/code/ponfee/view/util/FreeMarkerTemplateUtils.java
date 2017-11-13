@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
+import code.ponfee.commons.io.StringPrintWriter;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class FreemarkerTemplateUtils {
+public final class FreeMarkerTemplateUtils {
+    private FreeMarkerTemplateUtils() {}
+
     private static final String DEFAULT_CHARSET = "UTF-8";
     private static final TemplateLoader SOURCE_TEMPLATE_LOADER = new SourceTemplateLoader();
     private static final TemplateLoader URL_TEMPLATE_LOADER = new ExtendedURLTemplateLoader();
@@ -44,9 +47,17 @@ public class FreemarkerTemplateUtils {
         return getTemplate(cfg, url);
     }
 
-    public static void print(Template tpl, Object root, OutputStream out) {
+    public static Template load4conf(Configuration conf, String name) {
         try {
-            tpl.process(root, new PrintWriter(out));
+            return conf.getTemplate(name);
+        } catch (IOException e) {
+            throw new RuntimeException("template " + name + " load error", e);
+        }
+    }
+
+    public static void print(Template tpl, Object model, OutputStream out) {
+        try {
+            tpl.process(model, new PrintWriter(out));
             out.flush();
         } catch (TemplateException e) {
             throw new RuntimeException("template " + tpl.getName() + " process error", e);
@@ -55,6 +66,17 @@ public class FreemarkerTemplateUtils {
         }
     }
 
+    public static String print(Template tpl, Object model) {
+        try {
+            StringPrintWriter writer = new StringPrintWriter(); // StringWriter
+            tpl.process(model, writer);
+            return writer.getString();
+        } catch (TemplateException | IOException e) {
+            throw new RuntimeException("template " + tpl.getName() + " process error", e);
+        }
+    }
+
+    // ---------------------------------private methods---------------------------------
     private static Template getTemplate(Configuration cfg, String name) {
         cfg.setDefaultEncoding(DEFAULT_CHARSET);
         try {

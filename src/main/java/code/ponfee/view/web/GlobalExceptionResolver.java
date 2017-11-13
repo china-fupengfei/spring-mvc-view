@@ -15,7 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver;
 import org.springframework.web.util.WebUtils;
 
-import code.ponfee.commons.exception.ExceptionTracker;
+import code.ponfee.commons.exception.Throwables;
 import code.ponfee.commons.json.Jsons;
 import code.ponfee.commons.model.Result;
 
@@ -191,7 +191,7 @@ public class GlobalExceptionResolver extends AbstractHandlerExceptionResolver {
                     }
 
                     mv = new ModelAndView(viewName);
-                    if (stackTraceAttribute != null) mv.addObject(stackTraceAttribute, ExceptionTracker.peekStackTrace(ex));
+                    if (stackTraceAttribute != null) mv.addObject(stackTraceAttribute, Throwables.getStackTrace(ex));
                     if (exceptionAttribute != null) mv.addObject(exceptionAttribute, ex);
                 }
                 return mv;

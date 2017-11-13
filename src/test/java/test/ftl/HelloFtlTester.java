@@ -1,9 +1,9 @@
 package test.ftl;
 
-import static code.ponfee.view.util.FreemarkerTemplateUtils.load4dir;
-import static code.ponfee.view.util.FreemarkerTemplateUtils.load4source;
-import static code.ponfee.view.util.FreemarkerTemplateUtils.load4url;
-import static code.ponfee.view.util.FreemarkerTemplateUtils.print;
+import static code.ponfee.view.util.FreeMarkerTemplateUtils.load4dir;
+import static code.ponfee.view.util.FreeMarkerTemplateUtils.load4source;
+import static code.ponfee.view.util.FreeMarkerTemplateUtils.load4url;
+import static code.ponfee.view.util.FreeMarkerTemplateUtils.print;
 
 import java.io.File;
 import java.io.FileNotFoundException;
