@@ -21,7 +21,7 @@
         </dependency>
 
         <!-- log -->
-        <dependency>
+        <!-- <dependency>
             <groupId>log4j</groupId>
             <artifactId>log4j</artifactId>
             <version>1.2.17</version>
@@ -35,14 +35,14 @@
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.24</version>
-        </dependency>
+        </dependency> -->
 
         <!-- apache commons -->
-        <dependency>
+        <!-- <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
             <version>3.5</version>
-        </dependency>
+        </dependency> -->
         <dependency>
             <groupId>commons-fileupload</groupId>
             <artifactId>commons-fileupload</artifactId>
@@ -80,21 +80,21 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>
-            <version>4.2.9.RELEASE</version>
+            <version>4.3.12.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context-support</artifactId>
-            <version>4.2.9.RELEASE</version>
+            <version>4.3.12.RELEASE</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
-            <version>4.2.9.RELEASE</version>
+            <version>4.3.12.RELEASE</version>
         </dependency>
         
         <!-- jackson -->
-        <dependency>
+        <!-- <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-core</artifactId>
             <version>2.8.7</version>
@@ -108,7 +108,7 @@
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.8.7</version>
-        </dependency>
+        </dependency> -->
         
         <!-- jsr303 -->
         <dependency>
@@ -172,7 +172,7 @@
                         <!-- contextPath 的默认值的 /，${project.artifactId} 引用了 节点的值，即项目的名称。 -->
                         <contextPath>/${project.artifactId}</contextPath>
                         <!-- <resourceBases>
-                                                                           项目的静态资源文件目录默认是 src/main/webapp，可以引入多个
+                            ,项目的静态资源文件目录默认是 src/main/webapp，可以引入多个
                             <resourceBase>${project.basedir}/src/main/webapp</resourceBase>
                             <resourceBase>${project.basedir}/commons</resourceBase>
                         </resourceBases> -->

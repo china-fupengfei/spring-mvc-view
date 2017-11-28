@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- metadata-complete="true" 加上@WebFilter会不起作用 -->
+<!-- 
+ <p>metadata-complete="true" 加上@WebFilter会不起作用 
+ <p>Servlet 3.0 的部署描述文件 web.xml 的顶层标签 <web-app> 有一个 metadata-complete 属性，
+ <p>该属性指定当前的部署描述文件是否是完全的。如果设置为 true，则容器在部署时将只依赖部署描述文件，忽略所有的注解（同时也会跳过 web-fragment.xml 的扫描，
+ <p>亦即禁用可插性支持，具体请看后文关于 可插性支持的讲解）；如果不配置该属性，或者将其设置为 false，则表示启用注解支持（和可插性支持）。
+-->
 <web-app version="3.1" 
     xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
@@ -15,6 +20,7 @@
             <param-name>forceEncoding</param-name>
             <param-value>true</param-value>
         </init-param>
+        <async-supported>true</async-supported>
     </filter>
     <filter-mapping>
         <filter-name>CharacterEncodingFilter</filter-name>
@@ -29,6 +35,7 @@
             <param-value>classpath:spring-mvc.xml</param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
+        <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
         <servlet-name>springmvc-dispatcher</servlet-name>

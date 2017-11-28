@@ -16,6 +16,7 @@ import org.apache.commons.lang3.StringEscapeUtils;
  * @author fupf
  * @version 1.0
  */
+@SuppressWarnings("deprecation")
 public class StringEscapeEditor extends PropertyEditorSupport {
     private boolean escapeHTML = true;
 
