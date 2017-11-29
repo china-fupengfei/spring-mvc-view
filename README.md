@@ -1,1 +1,1 @@
-# spring mvc视图demo
+# spring mvc view example

@@ -154,8 +154,11 @@ public class GlobalExceptionResolver extends AbstractHandlerExceptionResolver {
      */
     @Override
     protected ModelAndView doResolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
-        if (ex instanceof WebException || ex instanceof IllegalArgumentException) logger.info(null, ex);
-        else logger.error(null, ex);
+        if (ex instanceof WebException || ex instanceof IllegalArgumentException) {
+            logger.info(null, ex);
+        } else {
+            logger.error(null, ex);
+        }
 
         switch (resolverType) {
             case "application/json":
@@ -164,7 +167,9 @@ public class GlobalExceptionResolver extends AbstractHandlerExceptionResolver {
                 int code;
                 if (ex instanceof WebException) {
                     code = ((WebException) ex).getCode();
-                    if (code < 1) code = 500;
+                    if (code < 1) {
+                        code = 500;
+                    }
                 } else {
                     code = 500;
                 }
@@ -191,8 +196,12 @@ public class GlobalExceptionResolver extends AbstractHandlerExceptionResolver {
                     }
 
                     mv = new ModelAndView(viewName);
-                    if (stackTraceAttribute != null) mv.addObject(stackTraceAttribute, Throwables.getStackTrace(ex));
-                    if (exceptionAttribute != null) mv.addObject(exceptionAttribute, ex);
+                    if (stackTraceAttribute != null) {
+                        mv.addObject(stackTraceAttribute, Throwables.getStackTrace(ex));
+                    }
+                    if (exceptionAttribute != null) {
+                        mv.addObject(exceptionAttribute, ex);
+                    }
                 }
                 return mv;
         }

@@ -3,6 +3,7 @@ package code.ponfee.view.web;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -33,7 +34,7 @@ public class XSSFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-        FilterChain chain) throws IOException, ServletException {
+                         FilterChain chain) throws IOException, ServletException {
         chain.doFilter(new XssHttpServletRequestWrapper((HttpServletRequest) request), response);
     }
 
@@ -126,7 +127,7 @@ public class XSSFilter implements Filter {
 
             InputStream input = super.getInputStream();
             try {
-                String data = htmlEscape(IOUtils.toString(input));
+                String data = htmlEscape(IOUtils.toString(input, Charset.defaultCharset()));
                 InputStream stream = new ByteArrayInputStream(data.getBytes());
                 return new ServletInputStream() {
                     @Override

@@ -44,9 +44,17 @@ import code.ponfee.commons.model.Result;
  *        <error-code>403</error-code>
  *        <location>/globalExceptionHandler</location>
  *    </error-page>
- * //----------------------------------
+ *
  * @author fupf
  */
+/*@WebServlet(
+    name = "code.ponfee.view.web.GlobalExceptionHandler",
+    urlPatterns = {"/globalExceptionHandler"},
+    initParams = {
+        @WebInitParam(name="handlerType", value="application/json")
+    },
+    asyncSupported=true
+)*/
 public class GlobalExceptionHandler extends HttpServlet {
     /** */
     private static final long serialVersionUID = 6067653829035388068L;
@@ -74,10 +82,15 @@ public class GlobalExceptionHandler extends HttpServlet {
 
         try {
             if (throwable != null) {
-                if (throwable instanceof WebException || throwable instanceof IllegalArgumentException) logger.info(null, throwable);
-                else logger.error(null, throwable);
+                if (throwable instanceof WebException || throwable instanceof IllegalArgumentException) {
+                    logger.info(null, throwable);
+                } else {
+                    logger.error(null, throwable);
+                }
                 throw throwable;
-            } else throw new WebException(404, "unknown exception");
+            } else {
+                throw new WebException(404, "unknown exception");
+            }
         } catch (Throwable e) {
             PrintWriter writer;
             switch (handlerType) {
@@ -87,7 +100,9 @@ public class GlobalExceptionHandler extends HttpServlet {
                     int code;
                     if (e instanceof WebException) {
                         code = ((WebException) e).getCode();
-                        if (code < 1) code = 500;
+                        if (code < 1) {
+                            code = 500;
+                        }
                     } else {
                         code = 500;
                     }
@@ -101,10 +116,8 @@ public class GlobalExceptionHandler extends HttpServlet {
                         logger.error(null, ex);
                     }
                     break;
-
                 default:
-                    // do nothing
-                    break;
+                    break; // do nothing
             }
         }
     }

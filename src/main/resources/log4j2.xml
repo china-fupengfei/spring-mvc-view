@@ -32,7 +32,7 @@
             <AppenderRef ref="Console" />
             <AppenderRef ref="RollingFile" />
         </Root>
-        <Logger name="code.ponfee.commons" level="info" includeLocation="true" additivity="false">
+        <Logger name="code.ponfee.view" level="info" includeLocation="true" additivity="false">
             <AppenderRef ref="Console" />
         </Logger>
     </Loggers>

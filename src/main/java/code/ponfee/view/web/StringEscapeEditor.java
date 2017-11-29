@@ -5,8 +5,8 @@ import java.beans.PropertyEditorSupport;
 import org.apache.commons.lang3.StringEscapeUtils;
 
 /**
- * @Title：XSS解决方案二：spring mvc controller添加输入过滤
- *     使用方法：放到controller父类中
+ * XSS解决方案之一：spring mvc controller添加输入过滤
+ * 使用方法：放到controller父类中
  * -------------------------------
  *     @InitBinder
  *     public void initBinder(WebDataBinder binder) {
@@ -14,7 +14,6 @@ import org.apache.commons.lang3.StringEscapeUtils;
  *     }
  * -------------------------------
  * @author fupf
- * @version 1.0
  */
 @SuppressWarnings("deprecation")
 public class StringEscapeEditor extends PropertyEditorSupport {
@@ -35,9 +34,16 @@ public class StringEscapeEditor extends PropertyEditorSupport {
     @Override
     public void setAsText(String text) {
         String value = text;
-        if (escapeHTML) value = StringEscapeUtils.escapeHtml4(value);
-        if (escapeJavaScript) value = StringEscapeUtils.escapeEcmaScript(value);
-        if (escapeSQL) value = StringEscapeUtils.escapeJava(value);
+        if (escapeHTML) {
+            value = StringEscapeUtils.escapeHtml4(value);
+        }
+        if (escapeJavaScript) {
+            value = StringEscapeUtils.escapeEcmaScript(value);
+        }
+        if (escapeSQL) {
+            value = StringEscapeUtils.escapeJava(value);
+        }
+
         setValue(value);
     }
 

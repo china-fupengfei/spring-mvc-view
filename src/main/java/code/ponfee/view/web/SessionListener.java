@@ -1,7 +1,7 @@
 package code.ponfee.view.web;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSessionListener;
 public class SessionListener implements HttpSessionListener {
 
     @Override
-    public void sessionCreated(HttpSessionEvent event) {}
+    public void sessionCreated(HttpSessionEvent event) {
+        SessionContext.addSession(event.getSession());
+    }
 
     /**
      * session销毁前调用的方法
@@ -22,15 +24,11 @@ public class SessionListener implements HttpSessionListener {
      */
     @Override
     public void sessionDestroyed(HttpSessionEvent event) {
-        HttpSession session = event.getSession();
-        /**
-         * 在sessionContext中移除
-         */
-        SessionContext.removeSession(session);
+        SessionContext.removeSession(event.getSession());
     }
 
     public static class SessionContext {
-        private static final Map<String, HttpSession> SESSION_MAP = new HashMap<String, HttpSession>();
+        private static final Map<String, HttpSession> SESSION_MAP = new ConcurrentHashMap<>();
 
         private SessionContext() {}
 
@@ -45,6 +43,5 @@ public class SessionListener implements HttpSessionListener {
         public static HttpSession getSession(String sessionId) {
             return SESSION_MAP.get(sessionId);
         }
-
     }
 }

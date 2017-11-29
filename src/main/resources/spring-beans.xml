@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:context="http://www.springframework.org/schema/context" 
+    xmlns:jdbc="http://www.springframework.org/schema/jdbc" 
+    xmlns:lang="http://www.springframework.org/schema/lang" 
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd 
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd 
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd 
+        http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd 
+        http://www.springframework.org/schema/lang http://www.springframework.org/schema/lang/spring-lang.xsd 
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <!-- 设置使用注解的类所在的包 -->
+    <context:component-scan base-package="code.ponfee.view" >
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+    </context:component-scan>
+
+    <!-- spring bean工具类 -->
+    <bean class="code.ponfee.commons.util.SpringContextHolder" />
+
+</beans>
