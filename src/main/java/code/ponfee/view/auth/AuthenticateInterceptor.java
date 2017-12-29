@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import code.ponfee.commons.util.ObjectUtils;
+import code.ponfee.commons.collect.Collects;
 import code.ponfee.commons.web.WebUtils;
 
 /**
@@ -152,7 +152,7 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
         RequestMapping mm = method.getAnnotation(RequestMapping.class);
         String[] actions = (am != null && am.value().length > 0) ? am.value() : blank;
         String[] methods = (mm != null && mm.value().length > 0) ? mm.value() : blank;
-        String params = StringUtils.join(ObjectUtils.concat(am.params(), mm.params()), "&");
+        String params = StringUtils.join(Collects.concat(am.params(), mm.params()), "&");
         String url = null;
         for (String a : actions) {
             for (String m : methods) {
