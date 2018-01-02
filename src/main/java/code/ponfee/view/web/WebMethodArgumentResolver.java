@@ -17,7 +17,8 @@ public class WebMethodArgumentResolver implements HandlerMethodArgumentResolver 
 
     @Override
     public Object resolveArgument(MethodParameter parameter, ModelAndViewContainer mavContainer,
-        NativeWebRequest webRequest, WebDataBinderFactory binderFactory) throws Exception {
+                                  NativeWebRequest webRequest, WebDataBinderFactory binderFactory) 
+    throws Exception {
         Class<?> clazz = parameter.getParameterType();
         Constructor<?> constructor = clazz.getConstructor(new Class[] { String.class });
         WebRequestParam requestParam = parameter.getParameterAnnotation(WebRequestParam.class);

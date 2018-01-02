@@ -20,6 +20,7 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import code.ponfee.commons.collect.Collects;
+import code.ponfee.commons.io.Files;
 import code.ponfee.commons.web.WebUtils;
 
 /**
@@ -29,7 +30,6 @@ import code.ponfee.commons.web.WebUtils;
 public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
 
     private static final String URL_PREFIX = "";
-    private static final String DEFAULT_CHARSET = "UTF-8";
 
     private static Logger logger = LoggerFactory.getLogger(AuthenticateInterceptor.class);
 
@@ -88,7 +88,7 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
      * 无效权限的处理
      */
     private void permissionDenied(HttpServletRequest req, HttpServletResponse resp, Type type, String fail) {
-        resp.setCharacterEncoding(DEFAULT_CHARSET);
+        resp.setCharacterEncoding(Files.DEFAULT_CHARSET);
         PrintWriter writer = null;
         try {
             writer = resp.getWriter();
@@ -96,13 +96,13 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
                 case JSON:
                 case HTML:
                 case PLAIN:
-                    resp.setContentType(type.media() + ";charset=" + DEFAULT_CHARSET);
+                    resp.setContentType(type.media() + ";charset=" + Files.DEFAULT_CHARSET);
                     writer.print(fail);
                     writer.flush();
                     writer.close();
                     break;
                 case TOP:
-                    resp.setContentType("text/html;charset=" + DEFAULT_CHARSET);
+                    resp.setContentType("text/html;charset=" + Files.DEFAULT_CHARSET);
                     writer.print("<script type=\"text/javascript\">");
                     writer.print("top.location.href='" + req.getContextPath() + fail + "';");
                     writer.print("</script>");
@@ -110,7 +110,7 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
                     writer.close();
                     break;
                 case ALERT:
-                    resp.setContentType("text/html;charset=" + DEFAULT_CHARSET);
+                    resp.setContentType("text/html;charset=" + Files.DEFAULT_CHARSET);
                     writer.print("<script type=\"text/javascript\">");
                     writer.print("alert('" + fail + "');history.back();");
                     writer.print("</script>");

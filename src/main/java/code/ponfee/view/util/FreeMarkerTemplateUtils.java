@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 
+import code.ponfee.commons.io.Files;
 import code.ponfee.commons.io.StringPrintWriter;
 import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
@@ -14,7 +15,6 @@ import freemarker.template.TemplateException;
 public final class FreeMarkerTemplateUtils {
     private FreeMarkerTemplateUtils() {}
 
-    private static final String DEFAULT_CHARSET = "UTF-8";
     private static final TemplateLoader SOURCE_TEMPLATE_LOADER = new SourceTemplateLoader();
     private static final TemplateLoader URL_TEMPLATE_LOADER = new ExtendedURLTemplateLoader();
 
@@ -78,10 +78,10 @@ public final class FreeMarkerTemplateUtils {
 
     // ---------------------------------private methods---------------------------------
     private static Template getTemplate(Configuration cfg, String name) {
-        cfg.setDefaultEncoding(DEFAULT_CHARSET);
+        cfg.setDefaultEncoding(Files.DEFAULT_CHARSET);
         try {
             cfg.setLocalizedLookup(false);
-            return cfg.getTemplate(name, DEFAULT_CHARSET);
+            return cfg.getTemplate(name, Files.DEFAULT_CHARSET);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
