@@ -14,8 +14,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import code.ponfee.commons.web.WebUtils;
 
 /**
  * 安全字符过滤，对可能攻击的非法字符进行处理，处理的漏洞包括： 
@@ -26,7 +26,6 @@ import org.slf4j.LoggerFactory;
  * @author fupf
  */
 public class SecurityFilter implements Filter {
-    private static Logger logger = LoggerFactory.getLogger(SecurityFilter.class);
 
     private static final String INVALID_PARAM = "invalid_param"; // 无效参数放入request attribute
     //private static final String SESSIONID = "jsessionid"; // 会话跟踪id
@@ -52,8 +51,7 @@ public class SecurityFilter implements Filter {
         HttpServletResponse response = (HttpServletResponse) resp;
 
         if (!sqlInjectValidate(request) || !xssValidate(request) /* || !csrfValidate(request) */) {
-            logger.warn("非法的请求参数：" + request.getAttribute(INVALID_PARAM));
-            throw new WebException(403, "非法请求");
+            WebUtils.respJson((HttpServletResponse) resp, "请求参数非法：" + request.getAttribute(INVALID_PARAM));
         } else {
             chain.doFilter(request, response);
         }

@@ -1,12 +1,10 @@
 package code.ponfee.view.controller;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
-import java.io.StringReader;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +25,7 @@ import code.ponfee.view.util.FreeMarkerTemplateUtils;
 import freemarker.template.Template;
 
 /**
- * http://localhost:8080/spring-mvc-view/news/newsList
+ * http://localhost:8000/spring-mvc-view/news/newsList
  */
 @Controller
 @RequestMapping("/news")
@@ -129,26 +127,20 @@ public class NewsController {
     //path 不存在则创建
     private boolean string2File(String text, String htmlPath) {
         File distFile = new File(htmlPath);
-        if (!distFile.getParentFile().exists()) distFile.getParentFile().mkdirs();
-        BufferedReader br = null;
-        BufferedWriter bw = null;
-        boolean r = true;
-        try {
-            br = new BufferedReader(new StringReader(text));
-            bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(distFile), "UTF-8"));//解决编码
-            char buf[] = new char[1024 * 64]; // 字符缓冲区
-            int len;
-            while ((len = br.read(buf)) != -1) {
-                bw.write(buf, 0, len);
-            }
-            bw.flush();
-            br.close();
-            bw.close();
-        } catch (IOException e) {
-            r = false;
-            System.err.println("create file error!");
+        if (!distFile.getParentFile().exists()) {
+            distFile.getParentFile().mkdirs();
         }
-        return r;
+
+        try (FileOutputStream out = new FileOutputStream(distFile);
+             OutputStreamWriter writer = new OutputStreamWriter(out, "UTF-8");
+             PrintWriter printer = new PrintWriter(writer)
+        ) {
+            printer.write(text);
+            return true;
+        } catch (IOException e) {
+            System.err.println("create file error!");
+            return false;
+        }
     }
 
 }

@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * http://localhost:8080/spring-mvc-view/tpl/hello
- * http://localhost:8080/spring-mvc-view/tpl/hello.ftl
- * http://localhost:8080/spring-mvc-view/tpl/hello.vm
+ * http://localhost:8000/spring-mvc-view/tpl/hello
+ * http://localhost:8000/spring-mvc-view/tpl/hello.ftl
+ * http://localhost:8000/spring-mvc-view/tpl/hello.vm
  */
 @Controller
 @RequestMapping("/tpl")
@@ -30,7 +30,7 @@ public class TplController {
         model.addAttribute("content", "光临");
         return "hello" + suffix;
     }
-    
+
     @RequestMapping(path = "/test")
     public String test(Model model) {
         model.addAttribute("title", "欢迎");

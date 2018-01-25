@@ -10,8 +10,8 @@ import code.ponfee.view.auth.Authority;
 import code.ponfee.view.entity.Person;
 
 /**
- * http://localhost:8080/spring-mvc-view/auth/person
- * http://localhost:8080/spring-mvc-view/auth/person2
+ * http://localhost:8000/spring-mvc-view/auth/person
+ * http://localhost:8000/spring-mvc-view/auth/person2
  */
 @Controller()
 @RequestMapping("/auth")
@@ -36,13 +36,13 @@ public class AuthorityController {
      */
     @Authority
     @RequestMapping("/person")
-    public String hello(ModelMap map) {
+    public String person(ModelMap map) {
         map.put("key", "value");
         return "person.ftl";
     }
 
     @RequestMapping("/person2")
-    public String world(ModelMap map) {
+    public String person2(ModelMap map) {
         map.put("key", "value");
         return "person.ftl";
     }

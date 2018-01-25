@@ -11,6 +11,8 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <project.encoding>UTF-8</project.encoding>
+        <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
@@ -117,7 +119,7 @@
             <plugin>
                 <groupId>org.eclipse.jetty</groupId>
                 <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.4.3.v20170317</version>
+                <version>9.4.8.v20171121</version>
                 <configuration>
                     <httpConnector>
                         <!-- -Djetty.port=8000 -->
@@ -140,7 +142,7 @@
                         </resourceBases> -->
                     </webApp>
                     <requestLog implementation="org.eclipse.jetty.server.NCSARequestLog">
-                        <filename>target/access-yyyy_mm_dd.log</filename>
+                        <filename>target/yyyy_mm_dd.log</filename>
                         <filenameDateFormat>yyyy_MM_dd</filenameDateFormat>
                         <logDateFormat>yyyy-MM-dd HH:mm:ss</logDateFormat>
                         <logTimeZone>GMT+8:00</logTimeZone>
@@ -161,7 +163,7 @@
                     <source>${java.version}</source>
                     <target>${java.version}</target>
                     <showWarnings>true</showWarnings>
-                    <encoding>UTF-8</encoding>
+                    <encoding>${project.encoding}</encoding>
                 </configuration>
             </plugin>
             

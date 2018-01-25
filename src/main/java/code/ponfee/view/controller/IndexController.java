@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class IndexController {
 
     @RequestMapping(path = "/")
-    public String hello() {
+    public String index() {
         return "redirect:page/index.html";
     }
 

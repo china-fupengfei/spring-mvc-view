@@ -17,7 +17,7 @@ public class AsyncController {
 
     @RequestMapping("/test1")
     public @ResponseBody String test1() {
-        return "hello";
+        return "test1";
     }
 
     @RequestMapping("/test2")

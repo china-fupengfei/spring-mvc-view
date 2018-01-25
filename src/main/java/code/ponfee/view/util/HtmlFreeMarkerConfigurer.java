@@ -37,12 +37,9 @@ public class HtmlFreeMarkerConfigurer extends FreeMarkerConfigurer {
         }
 
         public Reader getReader(Object templateSource, String encoding) throws IOException {
-            Reader reader = delegate.getReader(templateSource, encoding);
-            try {
+            try (Reader reader = delegate.getReader(templateSource, encoding)) {
                 String templateText = IOUtils.toString(reader);
                 return new StringReader(ESCAPE_PREFIX + templateText + ESCAPE_SUFFIX);
-            } finally {
-                IOUtils.closeQuietly(reader);
             }
         }
 

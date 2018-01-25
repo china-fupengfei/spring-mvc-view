@@ -125,8 +125,7 @@ public class XSSFilter implements Filter {
                 return super.getInputStream();
             }
 
-            InputStream input = super.getInputStream();
-            try {
+            try (InputStream input = super.getInputStream()) {
                 String data = htmlEscape(IOUtils.toString(input, Charset.defaultCharset()));
                 InputStream stream = new ByteArrayInputStream(data.getBytes());
                 return new ServletInputStream() {
@@ -150,8 +149,6 @@ public class XSSFilter implements Filter {
                         // nothing to do
                     }
                 };
-            } finally {
-                IOUtils.closeQuietly(input);
             }
         }
 
