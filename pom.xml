@@ -142,7 +142,7 @@
                         </resourceBases> -->
                     </webApp>
                     <requestLog implementation="org.eclipse.jetty.server.NCSARequestLog">
-                        <filename>target/yyyy_mm_dd.log</filename>
+                        <filename>target/access-yyyy_mm_dd.log</filename>
                         <filenameDateFormat>yyyy_MM_dd</filenameDateFormat>
                         <logDateFormat>yyyy-MM-dd HH:mm:ss</logDateFormat>
                         <logTimeZone>GMT+8:00</logTimeZone>

@@ -1,4 +1,4 @@
-package code.ponfee.view.start;
+package code.ponfee.view.startup;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -12,6 +12,7 @@ public class SpringStartupInitializer implements WebApplicationInitializer {
     @Override
     public void onStartup(ServletContext context) throws ServletException {
         // do something to init
+        System.out.println("*******************SpringStartupInitializer init*******************");
     }
 
 }

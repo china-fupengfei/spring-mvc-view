@@ -1,4 +1,4 @@
-package code.ponfee.view.start;
+package code.ponfee.view.startup;
 
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -18,6 +18,7 @@ public class SpringStartupListener implements ApplicationListener<ContextRefresh
     public void onApplicationEvent(ContextRefreshedEvent event) {
         if (event.getApplicationContext().getParent() == null) {
             // do something for application init
+            System.out.println("*******************SpringStartupListener init*******************");
         }
     }
 

@@ -10,8 +10,8 @@ import code.ponfee.view.auth.Authority;
 import code.ponfee.view.entity.Person;
 
 /**
- * http://localhost:8000/spring-mvc-view/auth/person
- * http://localhost:8000/spring-mvc-view/auth/person2
+ * http://localhost:8000/spring-mvc-view/auth/within
+ * http://localhost:8000/spring-mvc-view/auth/without
  */
 @Controller()
 @RequestMapping("/auth")
@@ -22,9 +22,9 @@ public class AuthorityController {
      * @param person
      * @param pw
      */
-    @Authority(entrust = "person")
-    @RequestMapping("/getage")
-    public void get(Person person, PrintWriter pw) {
+    @Authority(entrust = "within")
+    @RequestMapping("/entrust")
+    public void entrust(Person person, PrintWriter pw) {
         System.out.println(person.getName());
         pw.write("age " + person.getAge());
     }
@@ -35,14 +35,14 @@ public class AuthorityController {
      * @return
      */
     @Authority
-    @RequestMapping("/person")
-    public String person(ModelMap map) {
+    @RequestMapping("/within")
+    public String within(ModelMap map) {
         map.put("key", "value");
         return "person.ftl";
     }
 
-    @RequestMapping("/person2")
-    public String person2(ModelMap map) {
+    @RequestMapping("/without")
+    public String without(ModelMap map) {
         map.put("key", "value");
         return "person.ftl";
     }

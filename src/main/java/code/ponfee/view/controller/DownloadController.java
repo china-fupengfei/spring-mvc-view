@@ -16,7 +16,7 @@ public class DownloadController {
 
     @RequestMapping("/normal")
     public void normal(HttpServletResponse resp) throws FileNotFoundException {
-        WebUtils.response(resp, new FileInputStream("d:/procyon-decompiler-0.5.30.jar"), "test.zip", "UTF-8");
+        WebUtils.response(resp, new FileInputStream("d:/procyon-decompiler-0.5.30.jar"), "test.zip");
     }
 
     @RequestMapping("/gzip")

@@ -45,7 +45,6 @@ public class XSSFilter implements Filter {
      * XSS漏洞解决
      */
     public static final class XssHttpServletRequestWrapper extends HttpServletRequestWrapper {
-
         HttpServletRequest originRequest = null; // 原生的request
         boolean isUpload; // 判断是否是上传（上传忽略）
 
@@ -56,8 +55,8 @@ public class XSSFilter implements Filter {
             if (!"POST".equalsIgnoreCase(request.getMethod())) {
                 isUpload = false;
             } else {
-                String contentType = request.getContentType();
-                isUpload = contentType != null && contentType.toLowerCase().startsWith("multipart/");
+                String type = request.getContentType();
+                isUpload = type != null && type.toLowerCase().startsWith("multipart/");
             }
         }
 
@@ -83,26 +82,21 @@ public class XSSFilter implements Filter {
             return values;
         }
 
-        @SuppressWarnings({ "rawtypes", "unchecked" })
         @Override
-        public Map getParameterMap() {
-            Map params = super.getParameterMap();
+        public Map<String, String[]> getParameterMap() {
+            Map<String, String[]> params = super.getParameterMap();
             if (params == null || params.isEmpty()) {
                 return params;
             }
 
-            Map<String, Object> map = new HashMap<>(params.size() * 2);
-            for (Iterator<Entry<String, Object>> iter = params.entrySet().iterator(); iter.hasNext();) {
-                Entry<String, Object> entry = iter.next();
-                Object value = entry.getValue();
-                if (value == null) {
-                    // nothing to do
-                } else if (value instanceof String[]) {
-                    for (int n = ((String[]) value).length, i = 0; i < n; i++) {
-                        ((String[]) value)[i] = htmlEscape(((String[]) value)[i]);
+            Map<String, String[]> map = new HashMap<>(params.size() * 2);
+            for (Iterator<Entry<String, String[]>> t = params.entrySet().iterator(); t.hasNext();) {
+                Entry<String, String[]> entry = t.next();
+                String[] value = entry.getValue();
+                if (value != null) {
+                    for (int n = value.length, i = 0; i < n; i++) {
+                        value[i] = htmlEscape(value[i]);
                     }
-                } else {
-                    value = htmlEscape((String) value);
                 }
                 map.put(entry.getKey(), value);
             }
@@ -182,7 +176,6 @@ public class XSSFilter implements Filter {
             }
 
             return org.springframework.web.util.HtmlUtils.htmlEscape(source);
-
             //return freemarker.template.utility.StringUtil.XMLEncNA(str);
             //return org.apache.commons.text.StringEscapeUtils.escapeHtml4(str);
             //return org.springframework.web.util.HtmlUtils.htmlEscape(str);
