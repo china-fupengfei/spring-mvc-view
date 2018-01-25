@@ -13,7 +13,7 @@ ${key!}
 //查询
 $("#btn-search-down").click(function(){
 	//alert('');
-	$.post("getage",{name:"test",age:18},function(data) {
+	$.post("entrust",{name:"test",age:18},function(data) {
 		alert(data);
 	});
 });

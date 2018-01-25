@@ -3,9 +3,6 @@ package code.ponfee.view.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,11 +11,15 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
 
+import com.google.common.collect.ImmutableList;
+
+import code.ponfee.commons.io.Files;
 import code.ponfee.commons.web.WebContext;
 import code.ponfee.view.entity.Article;
 import code.ponfee.view.util.FreeMarkerTemplateUtils;
@@ -31,7 +32,17 @@ import freemarker.template.Template;
 @RequestMapping("/news")
 public class NewsController {
 
+    // test data
+    private static final List<Article> ARTICLES = ImmutableList.of(
+       new Article(20160701, "不明真相的美国人被UFO惊呆了 其实是长征7号", "据美国《洛杉矶时报》报道，当地时间周三晚(北京时间周四)，在美国中西部的犹他州、内华达州、加利福利亚州，数千人被划过夜空的神秘火球吓到"),
+       new Article(20160702, "法国巴黎圣母院为教堂恐袭案遇害神父举行大弥撒", "而据美国战略司令部证实，其实这是中国长征七号火箭重新进入大气层，刚好经过加利福利亚附近。"),
+       new Article(20160703, "日东京知事候选人小池百合子回击石原：浓妆可以", "然而昨晚的美国人民可不明真相，有些人甚至怀疑这些火球是飞机解体，还有些人猜测是流星雨。"),
+       new Article(20160704, "日资慰安妇基金在首尔成立 韩国示威者闯入抗议", "美国战略司令部发言人表示，到目前为止还没有任何受损报告，他说类似物体通常在大气中就会消失，这也解释了为何出现一道道光痕，这一切都并未造成什么威胁。"),
+       new Article(20160705, "中日关系正处十字路口日应寻求减少与华冲突", "中国长征七号火箭6月25日在海南文昌航天发射中心首次发射，并成功升空进入轨道。有学者指出长征七号第二级火箭一直在地球低轨运行，一个月后重新进入大气层。")
+    );
+
     public static final String NEWS_LIST = "/static/page/list";
+
     public static final String NEWS_CONTENT = "/static/page/list/content";
 
     @Resource
@@ -43,12 +54,9 @@ public class NewsController {
      */
     @RequestMapping("/newsList")
     public String getNewsListPage(Model model) {
-        // 测试数据
-        List<Article> list = getTestData();
-
         // 模板需要数据
         Map<String, Object> articleData = new HashMap<>();
-        articleData.put("articles", list);
+        articleData.put("articles", ARTICLES);
 
         // 模板生成静态页目录
         String basePath = WebContext.getRequest().getSession().getServletContext().getRealPath("/");
@@ -61,7 +69,7 @@ public class NewsController {
         //模板生成 HTML 内容
         String htmlText = FreeMarkerTemplateUtils.print(template, articleData);
         //生成静态页 列表页
-        string2File(htmlText, htmlPath);
+        saveToFile(htmlText, htmlPath);
         // 生成静态内容页
         getNewsContentPage(WebContext.getRequest(), WebContext.getResponse());
         // 跳转至静态页
@@ -77,9 +85,6 @@ public class NewsController {
      * @return
      */
     private void getNewsContentPage(HttpServletRequest request, HttpServletResponse response) {
-        // 测试数据
-        List<Article> list = getTestData();
-
         // 模板需要数据
         Map<String, Object> articleData = new HashMap<>();
 
@@ -87,7 +92,7 @@ public class NewsController {
         String htmlDir = request.getSession().getServletContext().getRealPath("/") + NEWS_CONTENT;
 
         //循环生成列表页中的内容页
-        for (Article article : list) {
+        for (Article article : ARTICLES) {
             //内容页数据
             articleData.put("article", article);
             //内容页名称
@@ -105,41 +110,17 @@ public class NewsController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            string2File(htmlText, htmlPath);
+            saveToFile(htmlText, htmlPath);
+            
         }
     }
 
-    /**
-     * 测试数据
-     * 
-     * @return
-     */
-    private List<Article> getTestData() {
-        List<Article> articles = new ArrayList<Article>();
-        articles.add(new Article(20160701, "不明真相的美国人被UFO惊呆了 其实是长征7号", "据美国《洛杉矶时报》报道，当地时间周三晚(北京时间周四)，在美国中西部的犹他州、内华达州、加利福利亚州，数千人被划过夜空的神秘火球吓到"));
-        articles.add(new Article(20160702, "法国巴黎圣母院为教堂恐袭案遇害神父举行大弥撒", "而据美国战略司令部证实，其实这是中国长征七号火箭重新进入大气层，刚好经过加利福利亚附近。"));
-        articles.add(new Article(20160703, "日东京知事候选人小池百合子回击石原：浓妆可以", "然而昨晚的美国人民可不明真相，有些人甚至怀疑这些火球是飞机解体，还有些人猜测是流星雨。"));
-        articles.add(new Article(20160704, "日资慰安妇基金在首尔成立 韩国示威者闯入抗议", "美国战略司令部发言人表示，到目前为止还没有任何受损报告，他说类似物体通常在大气中就会消失，这也解释了为何出现一道道光痕，这一切都并未造成什么威胁。"));
-        articles.add(new Article(20160705, "中日关系正处十字路口日应寻求减少与华冲突", "中国长征七号火箭6月25日在海南文昌航天发射中心首次发射，并成功升空进入轨道。有学者指出长征七号第二级火箭一直在地球低轨运行，一个月后重新进入大气层。"));
-        return articles;
-    }
-
-    //path 不存在则创建
-    private boolean string2File(String text, String htmlPath) {
-        File distFile = new File(htmlPath);
-        if (!distFile.getParentFile().exists()) {
-            distFile.getParentFile().mkdirs();
-        }
-
-        try (FileOutputStream out = new FileOutputStream(distFile);
-             OutputStreamWriter writer = new OutputStreamWriter(out, "UTF-8");
-             PrintWriter printer = new PrintWriter(writer)
-        ) {
-            printer.write(text);
-            return true;
-        } catch (IOException e) {
-            System.err.println("create file error!");
-            return false;
+    private void saveToFile(String text, String htmlPath) {
+        File file = Files.touch(htmlPath);
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            IOUtils.write(text, out, Files.DEFAULT_CHARSET);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
