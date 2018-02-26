@@ -88,7 +88,7 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
      * 无效权限的处理
      */
     private void permissionDenied(HttpServletRequest req, HttpServletResponse resp, Type type, String fail) {
-        resp.setCharacterEncoding(Files.DEFAULT_CHARSET);
+        resp.setCharacterEncoding(Files.UTF_8);
         PrintWriter writer = null;
         try {
             writer = resp.getWriter();

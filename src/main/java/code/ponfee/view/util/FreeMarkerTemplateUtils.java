@@ -78,10 +78,10 @@ public final class FreeMarkerTemplateUtils {
 
     // ---------------------------------private methods---------------------------------
     private static Template getTemplate(Configuration cfg, String name) {
-        cfg.setDefaultEncoding(Files.DEFAULT_CHARSET);
+        cfg.setDefaultEncoding(Files.UTF_8);
         try {
             cfg.setLocalizedLookup(false);
-            return cfg.getTemplate(name, Files.DEFAULT_CHARSET);
+            return cfg.getTemplate(name, Files.UTF_8);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
