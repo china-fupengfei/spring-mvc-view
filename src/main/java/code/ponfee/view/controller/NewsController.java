@@ -3,6 +3,7 @@ package code.ponfee.view.controller;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -118,7 +119,7 @@ public class NewsController {
     private void saveToFile(String text, String htmlPath) {
         File file = Files.touch(htmlPath);
         try (FileOutputStream out = new FileOutputStream(file)) {
-            IOUtils.write(text, out, Files.DEFAULT_CHARSET);
+            IOUtils.write(text, out, StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
         }
