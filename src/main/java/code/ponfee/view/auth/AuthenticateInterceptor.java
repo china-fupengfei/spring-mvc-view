@@ -93,6 +93,7 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
     }
 
     private boolean doAuthorization(String token, String url) {
+        // TODO
         // 1、校验token
         // 2、根据token获取用户信息
         // 3、校验用户是否有url对应的权限
@@ -106,7 +107,8 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
      * @param type
      * @param fail
      */
-    private void permissionDenied(HttpServletRequest req, HttpServletResponse resp, Type type, String fail) {
+    private void permissionDenied(HttpServletRequest req, HttpServletResponse resp, 
+                                  Type type, String fail) {
         resp.setCharacterEncoding(Files.UTF_8);
         PrintWriter writer = null;
         try {
