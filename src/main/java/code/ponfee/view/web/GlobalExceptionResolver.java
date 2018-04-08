@@ -126,7 +126,6 @@ public class GlobalExceptionResolver extends AbstractHandlerExceptionResolver {
      * Set the name of the model attribute as which the exception should be exposed. Default is "exception".
      * <p>
      * This can be either set to a different attribute name or to {@code null} for not exposing an exception attribute at all.
-     * @see #DEFAULT_EXCEPTION_ATTRIBUTE
      */
     public void setExceptionAttribute(String exceptionAttribute) {
         this.exceptionAttribute = exceptionAttribute;

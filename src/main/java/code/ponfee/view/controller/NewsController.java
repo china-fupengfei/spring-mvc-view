@@ -82,7 +82,6 @@ public class NewsController {
      * 
      * @param request
      * @param response
-     * @param model
      * @return
      */
     private void getNewsContentPage(HttpServletRequest request, HttpServletResponse response) {

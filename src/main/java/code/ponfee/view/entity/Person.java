@@ -2,10 +2,6 @@ package code.ponfee.view.entity;
 
 import java.io.Serializable;
 
-/**
- * 人员实体类
- *
- */
 public class Person implements Serializable {
     private static final long serialVersionUID = 1L;
 

@@ -52,7 +52,7 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
         Class<?> controller = hm.getBean().getClass();
         Method method = hm.getMethod();
 
-        Set<Rule> rules = new HashSet<Rule>();
+        Set<Rule> rules = new HashSet<>();
         Authority authC = controller.getAnnotation(Authority.class);
         Authority authM = method.getAnnotation(Authority.class);
         if (authC != null) {
@@ -163,11 +163,10 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
      * resolve the request mapping
      * @param clazz
      * @param method
-     * @param isContainEntrust
      * @return
      */
     public static Set<String> resolveMapping(Class<?> clazz, Method method) {
-        Set<String> urls = new HashSet<String>();
+        Set<String> urls = new HashSet<>();
 
         // 权限
         RequestMapping am = clazz.getAnnotation(RequestMapping.class);
