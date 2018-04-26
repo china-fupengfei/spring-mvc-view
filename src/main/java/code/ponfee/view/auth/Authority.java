@@ -22,5 +22,5 @@ public @interface Authority {
 
     String[] entrust() default {}; // 委托
 
-    String fail() default "{\"status\": 201,\"message\": \"会话超时，请重新<a style='color:blue;' href='login.html'>登录</a>\"}"; // 失败信息
+    String fail() default "{\"code\":201,\"msg\":\"会话超时，请<a style='color:blue;' href='login.html'>重新登录</a>\"}"; // 失败信息
 }

@@ -16,6 +16,7 @@ public class SpringStartupListener implements ApplicationListener<ContextRefresh
      */
     @Override
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        // check the container is root container
         if (event.getApplicationContext().getParent() == null) {
             // do something for application init
             System.out.println("*******************SpringStartupListener init*******************");

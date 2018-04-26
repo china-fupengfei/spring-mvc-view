@@ -3,6 +3,7 @@ package code.ponfee.view.auth;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Method;
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -109,34 +110,20 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
      */
     private void permissionDenied(HttpServletRequest req, HttpServletResponse resp, 
                                   Type type, String fail) {
-        resp.setCharacterEncoding(Files.UTF_8);
-        PrintWriter writer = null;
         try {
-            writer = resp.getWriter();
+            resp.setCharacterEncoding(Files.UTF_8);
             switch (type) {
                 case JSON:
                 case HTML:
                 case PLAIN:
-                    resp.setContentType(type.media() + ";charset=" + Files.UTF_8);
-                    writer.print(fail);
-                    writer.flush();
-                    writer.close();
+                    WebUtils.response(resp, type.media(), fail, Files.UTF_8);
                     break;
                 case TOP:
-                    resp.setContentType("text/html;charset=" + Files.UTF_8);
-                    writer.print("<script type=\"text/javascript\">");
-                    writer.print("top.location.href='" + req.getContextPath() + fail + "';");
-                    writer.print("</script>");
-                    writer.flush();
-                    writer.close();
-                    break;
+                    fail = "<script>top.location.href='" + req.getContextPath() + fail + "';</script>";
+                    WebUtils.response(resp, "text/html", fail, Files.UTF_8);
                 case ALERT:
-                    resp.setContentType("text/html;charset=" + Files.UTF_8);
-                    writer.print("<script type=\"text/javascript\">");
-                    writer.print("alert('" + fail + "');history.back();");
-                    writer.print("</script>");
-                    writer.flush();
-                    writer.close();
+                    fail = "<script>alert('" + fail + "');history.back();</script>";
+                    WebUtils.response(resp, "text/html", fail, Files.UTF_8);
                     break;
                 case REDIRECT:
                     resp.sendRedirect(req.getContextPath() + fail);
@@ -149,13 +136,9 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
                     break;
             }
         } catch (IOException e) {
-            logger.warn("response writer exception", e);
+            logger.error("response writer exception", e);
         } catch (ServletException e) {
-            logger.warn("request forward exception", e);
-        } finally {
-            if (writer != null) {
-                writer.close();
-            }
+            logger.error("request forward exception", e);
         }
     }
 
