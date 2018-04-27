@@ -89,7 +89,7 @@ public class XSSFilter implements Filter {
                 return params;
             }
 
-            Map<String, String[]> map = new HashMap<>(params.size() * 2);
+            Map<String, String[]> map = new HashMap<>(params.size() << 1);
             for (Iterator<Entry<String, String[]>> t = params.entrySet().iterator(); t.hasNext();) {
                 Entry<String, String[]> entry = t.next();
                 String[] value = entry.getValue();

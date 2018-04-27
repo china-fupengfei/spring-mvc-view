@@ -67,7 +67,7 @@ public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        String token = WebUtils.getSessionTrace();
+        String token = WebUtils.getSessionTrace(req);
         if (!rules.contains(Rule.NON) && StringUtils.isEmpty(token)) {
             // 校验token是否存在
             logger.warn("get user token fail");
