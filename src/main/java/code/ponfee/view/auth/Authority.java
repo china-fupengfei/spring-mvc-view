@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 /**
  * permission 
  * 权限注解，作用于action/controller
+ *
  * @author fupf
  */
 @Target({ ElementType.TYPE, ElementType.METHOD })

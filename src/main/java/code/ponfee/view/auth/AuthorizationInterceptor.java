@@ -1,9 +1,7 @@
 package code.ponfee.view.auth;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -26,14 +24,18 @@ import code.ponfee.commons.web.WebUtils;
 
 /**
  * 权限拦截器
+ *
+ * authentication  认证
+ * authorization   鉴权
+ *
  * @author fupf
  */
-public class AuthenticateInterceptor extends HandlerInterceptorAdapter {
+public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 
     private static final String URL_PREFIX = "";
     private static final String[] BLANK_STRING_ARRAY = { "" };
 
-    private static Logger logger = LoggerFactory.getLogger(AuthenticateInterceptor.class);
+    private static Logger logger = LoggerFactory.getLogger(AuthorizationInterceptor.class);
 
     /**
      * 执行方法前进行权限的校验拦截

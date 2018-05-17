@@ -236,7 +236,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**" />
-            <bean class="code.ponfee.view.auth.AuthenticateInterceptor" />
+            <bean class="code.ponfee.view.auth.AuthorizationInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>
 

@@ -1,7 +1,8 @@
 package code.ponfee.view.auth;
 
 /**
- * @Title：响应类型
+ * 响应类型
+ *
  * @author fupf
  */
 public enum Type {
