@@ -20,7 +20,7 @@ public class WebMethodArgumentResolver implements HandlerMethodArgumentResolver 
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) 
     throws Exception {
         Class<?> clazz = parameter.getParameterType();
-        Constructor<?> constructor = clazz.getConstructor(new Class[] { String.class });
+        Constructor<?> constructor = clazz.getConstructor(String.class);
         WebRequestParam requestParam = parameter.getParameterAnnotation(WebRequestParam.class);
         return constructor.newInstance(webRequest.getParameter(requestParam.value()));
     }

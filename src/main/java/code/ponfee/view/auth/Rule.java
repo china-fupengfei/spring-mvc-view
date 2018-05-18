@@ -6,5 +6,5 @@ package code.ponfee.view.auth;
  * @author fupf
  */
 public enum Rule {
-    TOKEN, URL, NON;
+    TOKEN, URL, NON
 }

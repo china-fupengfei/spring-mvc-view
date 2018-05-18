@@ -30,7 +30,7 @@ import org.apache.commons.lang3.StringUtils;
 public class XSSFilter implements Filter {
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {}
+    public void init(FilterConfig filterConfig) {}
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,

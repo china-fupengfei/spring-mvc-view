@@ -71,7 +71,7 @@ public class GlobalExceptionHandler extends HttpServlet {
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
         Throwable throwable = (Throwable) req.getAttribute("javax.servlet.error.exception");
         Integer statusCode = (Integer) req.getAttribute("javax.servlet.error.status_code");
         String servletName = (String) req.getAttribute("javax.servlet.error.servlet_name");

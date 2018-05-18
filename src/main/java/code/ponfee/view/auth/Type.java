@@ -11,9 +11,9 @@ public enum Type {
 
     private String media;
 
-    private Type() {}
+    Type() {}
 
-    private Type(String media) {
+    Type(String media) {
         this.media = media;
     }
 

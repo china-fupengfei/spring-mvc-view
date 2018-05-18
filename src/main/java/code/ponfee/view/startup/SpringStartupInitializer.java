@@ -10,7 +10,7 @@ public class SpringStartupInitializer implements WebApplicationInitializer {
 
     @Order(1)
     @Override
-    public void onStartup(ServletContext context) throws ServletException {
+    public void onStartup(ServletContext context) {
         // do something to init
         System.out.println("*******************SpringStartupInitializer init*******************");
     }
