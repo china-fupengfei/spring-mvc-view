@@ -66,7 +66,7 @@ public class GlobalExceptionHandler extends HttpServlet {
     private String handlerType;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
         this.doPost(req, resp);
     }
 
