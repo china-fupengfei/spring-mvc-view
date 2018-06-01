@@ -1,11 +1,15 @@
 package code.ponfee.view.startup;
 
 import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
 
 import org.springframework.core.annotation.Order;
 import org.springframework.web.WebApplicationInitializer;
 
+/**
+ * spring 初始化执行
+ * 
+ * @author Ponfee
+ */
 public class SpringStartupInitializer implements WebApplicationInitializer {
 
     @Order(1)
