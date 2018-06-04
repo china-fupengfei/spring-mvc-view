@@ -35,12 +35,12 @@
 
     <!-- 系统安全过滤（sql、部分XSS、cookie安全） -->
     <filter>
-        <filter-name>code.ponfee.view.web.SecurityFilter</filter-name>
+        <filter-name>securityFilter</filter-name>
         <filter-class>code.ponfee.view.web.SecurityFilter</filter-class>
         <async-supported>true</async-supported>
     </filter>
     <filter-mapping>
-        <filter-name>code.ponfee.view.web.SecurityFilter</filter-name>
+        <filter-name>securityFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
@@ -57,7 +57,7 @@
 
     <!-- 字符编码过滤器 -->
     <filter>
-        <filter-name>org.springframework.web.filter.CharacterEncodingFilter</filter-name>
+        <filter-name>characterEncodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
         <async-supported>true</async-supported>
         <init-param>
@@ -70,7 +70,7 @@
         </init-param>
     </filter>
     <filter-mapping>
-        <filter-name>org.springframework.web.filter.CharacterEncodingFilter</filter-name>
+        <filter-name>characterEncodingFilter</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
 
@@ -93,7 +93,7 @@
 
     <!-- 异常、错误处理servlet -->
     <servlet>
-        <servlet-name>code.ponfee.view.web.GlobalExceptionHandler</servlet-name>
+        <servlet-name>globalExceptionHandler</servlet-name>
         <servlet-class>code.ponfee.view.web.GlobalExceptionHandler</servlet-class>
         <init-param>
             <param-name>handlerType</param-name>
@@ -102,7 +102,7 @@
         <async-supported>true</async-supported>
     </servlet>
     <servlet-mapping>
-        <servlet-name>code.ponfee.view.web.GlobalExceptionHandler</servlet-name>
+        <servlet-name>globalExceptionHandler</servlet-name>
         <url-pattern>/globalExceptionHandler</url-pattern>
     </servlet-mapping>
     <!-- <error-page>
