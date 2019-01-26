@@ -163,7 +163,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
         String[] methods = (mm != null && mm.value().length > 0) 
                            ? mm.value() : Arrays.copyOf(BLANK_STRING_ARRAY, 1);
 
-        String params = StringUtils.join(Collects.concat(am.params(), mm.params()), "&");
+        String params = StringUtils.join(Collects.concat(String[]::new, am.params(), mm.params()), "&");
         String url = null;
         for (String a : actions) {
             for (String m : methods) {

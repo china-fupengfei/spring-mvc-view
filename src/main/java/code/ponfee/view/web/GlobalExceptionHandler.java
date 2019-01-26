@@ -109,7 +109,7 @@ public class GlobalExceptionHandler extends HttpServlet {
                     resp.setContentType(handlerType + ";charset=UTF-8");
                     try {
                         writer = resp.getWriter();
-                        writer.print(Jsons.NORMAL.stringify(Result.failure(code, e.getMessage())));
+                        writer.print(Jsons.NORMAL.string(Result.failure(code, e.getMessage())));
                         writer.flush();
                         writer.close();
                     } catch (IOException ex) {

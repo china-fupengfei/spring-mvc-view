@@ -175,7 +175,7 @@ public class GlobalExceptionResolver extends AbstractHandlerExceptionResolver {
                 response.setContentType(resolverType + ";charset=UTF-8");
                 try {
                     PrintWriter writer = response.getWriter();
-                    writer.print(Jsons.NORMAL.stringify(Result.failure(code, ex.getMessage())));
+                    writer.print(Jsons.NORMAL.string(Result.failure(code, ex.getMessage())));
                     writer.flush();
                     writer.close();
                 } catch (IOException e) {
